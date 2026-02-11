@@ -1,12 +1,13 @@
 package pieces;
 
 public class Queen extends Piece {
-  public Queen(int x, int y, String imageAddress) {
-    super(x, y, imageAddress);
+  public Queen(int x, int y, String imageAddress, boolean white) {
+    super(x, y, imageAddress, white);
   }
 
-  public boolean isValidMove(int x, int y) {
-    if (!super.isValidMove(x, y)) {
+  @Override
+  public boolean isValidMove(int x, int y, boolean capture) {
+    if (!super.isValidMove(x, y, capture)) {
       return false;
     }
     if (((x == 0) || (y == 0)) || ((x == y) || (x == -y))) {
