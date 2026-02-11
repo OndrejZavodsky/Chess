@@ -15,13 +15,13 @@ public abstract class Piece {
 
   public void jump(int x, int y) {
     if (isValidMove(x, y)) {
-      this.x = x;
-      this.y = y;
+      this.x += x;
+      this.y += y;
     }
   }
 
   public boolean isValidMove(int x, int y) {
-    if ((x < 1 || x > 8) && (y < 1 || y > 8)) {
+    if ((this.x + x < 1 || this.x + x > 8) && (this.y + y < 1 || this.y + y > 8) && (x == 0 && y == 0)) {
       return false;
     }
     return true;

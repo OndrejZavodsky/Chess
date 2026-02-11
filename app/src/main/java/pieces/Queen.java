@@ -5,8 +5,13 @@ public class Queen extends Piece {
     super(x, y, imageAddress);
   }
 
-  @Override
-  public void jump(int x, int y) {
-
+  public boolean isValidMove(int x, int y) {
+    if (!super.isValidMove(x, y)) {
+      return false;
+    }
+    if (((x == 0) || (y == 0)) || ((x == y) || (x == -y))) {
+      return true;
+    }
+    return false;
   }
 }

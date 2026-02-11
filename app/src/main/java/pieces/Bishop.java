@@ -6,7 +6,13 @@ public class Bishop extends Piece {
   }
 
   @Override
-  public void jump(int x, int y) {
-
+  public boolean isValidMove(int x, int y) {
+    if (!super.isValidMove(x, y)) {
+      return false;
+    }
+    if ((x == y) || (x == -y)) {
+      return true;
+    }
+    return false;
   }
 }

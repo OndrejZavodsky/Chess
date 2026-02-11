@@ -8,13 +8,15 @@ public class Knight extends Piece {
   @Override
   public boolean isValidMove(int x, int y) {
     if (super.isValidMove(x, y)) {
-      if ((this.getX() + 1 == x || this.getX() - 1 == x) && (this.getY() + 2 == y || this.getY() - 2 == y)) {
-        return true;
-      }
-      if ((this.getX() + 2 == x || this.getX() - 2 == x) && (this.getY() + 1 == y || this.getY() - 1 == y)) {
-        return true;
-      }
+      return false;
     }
+    if ((x == 1 || x == -1) && (y == 2 || y == -2)) {
+      return true;
+    }
+    if ((x == 2 || x == -2) && (y == 1 || y == -1)) {
+      return true;
+    }
+
     return false;
   }
 }
