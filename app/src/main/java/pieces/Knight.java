@@ -6,7 +6,15 @@ public class Knight extends Piece {
   }
 
   @Override
-  public void jump(int x, int y) {
-
+  public boolean isValidMove(int x, int y) {
+    if (super.isValidMove(x, y)) {
+      if ((this.getX() + 1 == x || this.getX() - 1 == x) && (this.getY() + 2 == y || this.getY() - 2 == y)) {
+        return true;
+      }
+      if ((this.getX() + 2 == x || this.getX() - 2 == x) && (this.getY() + 1 == y || this.getY() - 1 == y)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

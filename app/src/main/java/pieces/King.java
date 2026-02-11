@@ -6,7 +6,11 @@ public class King extends Piece {
   }
 
   @Override
-  public void jump(int x, int y) {
-
+  public boolean isValidMove(int x, int y) {
+    if (super.isValidMove(x, y)) {
+      if ((x >= -1 && x <= 1) && (y >= 1 && y <= 1))
+        return true;
+    }
+    return false;
   }
 }
