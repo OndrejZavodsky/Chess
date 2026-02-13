@@ -1,13 +1,16 @@
 package pieces;
 
 public class Pawn extends Piece {
+  private boolean hasMoved;
+
   public Pawn(int x, int y, String imageAddress, boolean white) {
     super(x, y, imageAddress, white);
+    this.hasMoved = false;
   }
 
   @Override
   public void jump(int x, int y, boolean capture) {
-
+    this.hasMoved = true;
   }
 
   @Override
@@ -18,36 +21,23 @@ public class Pawn extends Piece {
     }
 
     int direction = isWhite() ? -1 : 1;
-    int startY = isWhite() ? 7 : 2;
 
-    // Calculate effective Y movement based on pawn color
-    int effectiveY = y * direction;
-
-    // Diagonal capture: 1 square diagonally forward when capture=true
+    int dx = x - this.getX();
+    int dy = y - this.getY();
     if (capture) {
-      return (Math.abs(x) == 1 && effectiveY == 1);
+      return Math.abs(dx) == 1 && dy == direction;
     }
-
-    // Non-capture moves must be straight forward (x == 0)
-    if (x != 0) {
+    if (dx != 0) {
       return false;
     }
-
-    // Forward 1 square
-    if (effectiveY == 1) {
-      // TODO: Check if target square is blocked (requires board state)
+    if (dy == direction) {
       return true;
     }
-
-    // Forward 2 squares from starting position
-    if (effectiveY == 2 && getY() == startY) {
-      // TODO: Check if path is clear (requires board state)
+    if (!this.hasMoved && dy == 2 * direction) {
       return true;
     }
 
     return false;
   }
 
-  // TODO: En passant capture - requires access to move history or game state
-  // TODO: Pawn promotion detection - requires knowing when pawn reaches the end
 }
