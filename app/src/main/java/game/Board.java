@@ -3,7 +3,9 @@ package game;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.GridPane;
-import pieces.*;
+import pieces.Piece;
+import pieces.PieceFactory;
+import pieces.PieceFactory.PieceType;
 
 public class Board {
   private GridPane grid;
@@ -65,5 +67,31 @@ public class Board {
 
   public Piece getPiece(int x, int y) {
     return board[x][y];
+  }
+
+  public void removePiece(int x, int y) {
+    board[x][y] = null;
+  }
+
+  public boolean isPathClear(int startX, int startY, int endX, int endY) {
+    int dx = Integer.compare(endX, startX);
+    int dy = Integer.compare(endY, startY);
+
+    int currX = startX + dx;
+    int currY = startY + dy;
+
+    while (currX != endX || currY != endY) {
+      if (board[currY][currX] != null) {
+        return false;
+      }
+      currX += dx;
+      currY += dy;
+    }
+
+    return true;
+  }
+
+  public GridPane getGrid() {
+    return grid;
   }
 }
