@@ -1,7 +1,7 @@
 package pieces;
 
-public class Queen extends Piece {
-  public Queen(int x, int y, String imageAddress, boolean white) {
+public class Rook extends Piece {
+  public Rook(int x, int y, String imageAddress, boolean white) {
     super(x, y, imageAddress, white);
   }
 
@@ -10,7 +10,9 @@ public class Queen extends Piece {
     if (!super.isValidMove(x, y, capture)) {
       return false;
     }
-    if (((x == 0) || (y == 0)) || ((x == y) || (x == -y))) {
+    int dx = x - this.getX();
+    int dy = y - this.getY();
+    if ((dx == 0) || (dy == 0)) {
       return true;
     }
     return false;

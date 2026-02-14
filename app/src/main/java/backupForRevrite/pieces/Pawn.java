@@ -10,6 +10,7 @@ public class Pawn extends Piece {
 
   @Override
   public void jump(int x, int y, boolean capture) {
+    super.jump(x, y, capture);
     this.hasMoved = true;
   }
 

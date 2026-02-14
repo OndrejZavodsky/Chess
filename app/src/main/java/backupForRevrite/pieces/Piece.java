@@ -12,18 +12,24 @@ public abstract class Piece {
     this.x = x;
     this.y = y;
     this.image = new PieceImage(imageAddress);
+    this.image.show();
     this.white = white;
   }
 
   public void jump(int x, int y, boolean capture) {
     if (isValidMove(x, y, capture)) {
-      this.x += x;
-      this.y += y;
+      this.x = x;
+      this.y = y;
     }
   }
 
   public boolean isValidMove(int x, int y, boolean capture) {
-    if ((this.x + x < 1 || this.x + x > 8) && (this.y + y < 1 || this.y + y > 8) && (x == 0 && y == 0)) {
+    // Check if target position is within board bounds (0-7)
+    if (x < 0 || x > 7 || y < 0 || y > 7) {
+      return false;
+    }
+    // Can't move to the same position
+    if (x == this.x && y == this.y) {
       return false;
     }
     return true;

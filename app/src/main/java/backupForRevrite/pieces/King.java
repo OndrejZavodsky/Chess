@@ -7,9 +7,13 @@ public class King extends Piece {
 
   @Override
   public boolean isValidMove(int x, int y, boolean capture) {
-    if (super.isValidMove(x, y, capture)) {
-      if ((x >= -1 && x <= 1) && (y >= -1 && y <= 1))
-        return true;
+    if (!super.isValidMove(x, y, capture)) {
+      return false;
+    }
+    int dx = x - this.getX();
+    int dy = y - this.getY();
+    if ((dx >= -1 && dx <= 1) && (dy >= -1 && dy <= 1)) {
+      return true;
     }
     return false;
   }

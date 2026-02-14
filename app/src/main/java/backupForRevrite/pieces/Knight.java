@@ -7,7 +7,7 @@ public class Knight extends Piece {
 
   @Override
   public boolean isValidMove(int x, int y, boolean capture) {
-    if (super.isValidMove(x, y, capture)) {
+    if (!super.isValidMove(x, y, capture)) {
       return false;
     }
     if ((x == 1 || x == -1) && (y == 2 || y == -2)) {

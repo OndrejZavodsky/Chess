@@ -10,7 +10,9 @@ public class Bishop extends Piece {
     if (!super.isValidMove(x, y, capture)) {
       return false;
     }
-    if ((x == y) || (x == -y)) {
+    int dx = x - this.getX();
+    int dy = y - this.getY();
+    if ((dx == dy) || (dx == -dy)) {
       return true;
     }
     return false;

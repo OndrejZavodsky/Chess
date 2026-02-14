@@ -32,7 +32,7 @@ public class Game {
     // Check all opponent pieces to see if any can attack square (x, y)
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
-        Piece piece = board.getPiece(col, row);
+        Piece piece = board.getPiece(row, col);
         if (piece != null && piece.isWhite() == byWhite) {
           int dx = x - piece.getX();
           int dy = y - piece.getY();
@@ -66,6 +66,18 @@ public class Game {
 
   public void makeMove(int x, int y, int nx, int ny) {
     Piece p = board.getPiece(x, y);
+    if (p == null) {
+      return;
+    }
+
+    // Check if there's a piece at the destination
+    Piece targetPiece = board.getPiece(nx, ny);
+    boolean isCapture = (targetPiece != null && targetPiece.isWhite() != p.isWhite());
+
+    // Check if the move is valid for this piece
+    if (!p.isValidMove(nx, ny, isCapture)) {
+      return;
+    }
 
     // Check if path is blocked for pieces that cannot jump (Rook, Bishop, Queen)
     if (p instanceof Rook || p instanceof Bishop || p instanceof Queen) {
@@ -82,19 +94,13 @@ public class Game {
       }
     }
 
+    // Execute the move
+    board.movePiece(x, y, nx, ny);
+
     CmdMove cmd = null;
     if (p instanceof Pawn) {
-      if (this.moves.getLast().getPawnMove()) {
-        int direction = p.isWhite() ? -1 : 1;
-        int lastMoveY = ny - direction;
-        Piece adjacentPawn = board.getPiece(nx, lastMoveY);
-        if (adjacentPawn != null && adjacentPawn instanceof Pawn && adjacentPawn.isWhite() != p.isWhite()) {
-          board.removePiece(nx, lastMoveY);
-        }
-      }
       cmd = new CmdMove(true, nx, ny);
     } else {
-
       cmd = new CmdMove(false, nx, ny);
     }
     this.moves.add(cmd);
